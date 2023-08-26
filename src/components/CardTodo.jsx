@@ -1,7 +1,8 @@
 import React from "react";
 import IconButton from "./IconButton";
-import { MdCheckBox, MdCheckBoxOutlineBlank } from "react-icons/md";
+import { MdCheckBox, MdCheckBoxOutlineBlank, MdDelete } from "react-icons/md";
 import Avatar from "./Avatar";
+import { format } from "date-fns";
 /**
  * Card para exibir as tarefas em um design bonito com elevação ao clique no cartão.
  */
@@ -9,11 +10,14 @@ import Avatar from "./Avatar";
 const STR = {
   created: "Criado em: ",
   completed: "Completado em: ",
+  titleDelete: "Excluir tarefa do sistema",
 };
 const sizeCheck = 36;
 
 function CardTodo({
   onChecked,
+  onEdit,
+  onDelete,
   task,
   dateCompleted,
   dateCreated,
@@ -22,10 +26,10 @@ function CardTodo({
 }) {
   return (
     <div
-      onClick={onChecked}
-      className="p-4 flex gap-2 cursor-pointer items-center shadow-md hover:shadow-xl bg-white rounded-lg transition-shadow"
+      onClick={onEdit}
+      className="p-4 flex gap-4 cursor-pointer items-center shadow-md hover:shadow-lg bg-white rounded-lg transition-shadow"
     >
-      <IconButton onClick={() => {}} className="">
+      <IconButton onClick={onChecked} className="">
         {dateCompleted ? (
           <MdCheckBox className="text-primary" size={sizeCheck} />
         ) : (
@@ -36,10 +40,17 @@ function CardTodo({
         <p className="xs:text-sm md:text-xl text-primary pacifico">{task}</p>
 
         <p className="text-xs text-gray-400 text-center">
-          {dateCompleted ? `${STR.completed} ${dateCompleted}` : <br />}
+          {dateCompleted ? (
+            `${STR.completed} ${format(dateCompleted, "dd/MM/yy HH:mm")}`
+          ) : (
+            <br />
+          )}
         </p>
       </div>
       <Avatar src={avatar} alt={altAvatar} />
+      <IconButton title={STR.titleDelete} onClick={onDelete}>
+        <MdDelete size={24} className="text-red-600" />
+      </IconButton>
     </div>
   );
 }

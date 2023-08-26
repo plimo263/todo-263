@@ -1,27 +1,23 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { clsx } from "clsx";
 /**
  * Cria um botão para ser usado na aplicação. Botão com 3 tipos de escolha. contained, text, outlined
  */
 
-const getClassName = (variant) => {
-  const defaultClassName = " px-2 py-1 rounded-lg hover:shadow-lg transition ";
-  switch (variant) {
-    case "contained":
-      return defaultClassName + " bg-primary text-white ";
-    case "text":
-      return defaultClassName + " text-primary ";
-    case "outlined":
-      return defaultClassName + " border border-primary text-primary ";
-    default:
-      return defaultClassName;
-  }
-};
-
 function Button({ onClick, children, variant, className, ...rest }) {
-  const classNameBtn = getClassName(variant) + className;
   return (
-    <button onClick={onClick} className={classNameBtn} {...rest}>
+    <button
+      onClick={onClick}
+      className={clsx({
+        "px-2 py-1 rounded-lg hover:shadow-lg transition": true,
+        "bg-primary text-white": variant === "contained",
+        "text-primary": variant === "text",
+        "border border-primary text-primary": variant === "outlined",
+        [className]: className,
+      })}
+      {...rest}
+    >
       {children}
     </button>
   );

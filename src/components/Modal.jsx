@@ -13,13 +13,13 @@ const STR = {
 
 function Modal({ children, onClose }) {
   return (
-    <div className="z-10 fixed top-0 left-0 flex flex-col items-center justify-center w-screen h-screen bg-black opacity-80">
+    <div className="z-50 fixed top-0 left-0 flex flex-col items-center justify-center w-screen h-screen bg-black opacity-80">
       <motion.div
         initial={{ y: "150vh" }}
         animate={{ y: "0" }}
         exit={{ y: "150vh" }}
         transition={{ type: "keyframes", delay: 0.1 }}
-        className=" bg-white w-11/12 md:w-10/12 lg:w-6/12 min-h-[50%] mx-auto p-4 rounded-lg flex flex-col justify-between"
+        className="bg-white w-11/12 md:w-10/12 lg:w-6/12 min-h-[50%] mx-auto p-4 rounded-lg flex flex-col justify-between "
       >
         {children}
         <Button

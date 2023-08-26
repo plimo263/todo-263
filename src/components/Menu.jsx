@@ -22,7 +22,6 @@ function Menu({ onClose, anchorEl, options, isOpen }) {
         position: "fixed",
         top: anchorEl?.current?.offsetTop + 28,
         left: anchorEl?.current?.offsetLeft - ref?.current?.clientWidth + 16,
-
         visibility: isOpen ? "visible" : "hidden",
       }}
     >
