@@ -146,7 +146,7 @@ function List({ items, renderItem, animation, interval, className }) {
       className={clsx({ [cls]: true, [className]: Boolean(className) })}
     >
       <AnimatePresence>
-        {items.map((item) => (
+        {items.map((item, idx) => (
           <motion.li
             key={item.id || idx}
             variants={variant}

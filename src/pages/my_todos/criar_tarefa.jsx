@@ -1,5 +1,6 @@
 import Fab from "@/components/Fab";
 import TextField from "@/components/TextField";
+import isHotkey from "is-hotkey";
 import { uniqueId } from "lodash";
 import React, { useCallback, useState } from "react";
 import { MdAddTask } from "react-icons/md";
@@ -11,22 +12,47 @@ const STR = {
   labelBtn: "Criar Tarefa",
   placeholder: "Digite o nome da tarefa",
 };
+// Teclas de atalho para execução de recursos com combinação.
+const HOTKEY_VALIDADOR = {
+  enter: (evt) => isHotkey("enter")(evt),
+};
 
 function CriarTarefa({ onConfirm }) {
   const [value, setValue] = useState("");
   //
   const onSubmit = useCallback(() => {
     onConfirm({
-      id: uniqueId(),
       task: value,
       dateCreated: new Date(),
       dateCompleted: null,
     });
   }, [value, onConfirm]);
+  //
+  const onChange = useCallback(
+    (e) => {
+      setValue(e.target.value);
+    },
+    [onConfirm, setValue]
+  );
+  //
+  const onKeyUp = useCallback(
+    (e) => {
+      if (HOTKEY_VALIDADOR.enter(e)) {
+        onConfirm({
+          task: value,
+          dateCreated: new Date(),
+          dateCompleted: null,
+        });
+      }
+    },
+    [value, onConfirm]
+  );
+  //
   return (
     <div className="h-full flex flex-col items-center justify-center gap-4">
       <TextField
-        onChange={(e) => setValue(e.target.value)}
+        onChange={onChange}
+        onKeyUp={onKeyUp}
         value={value}
         autoFocus
         placeholder={STR.placeholder}

@@ -2,7 +2,8 @@ import React from "react";
 import IconButton from "./IconButton";
 import { MdCheckBox, MdCheckBoxOutlineBlank, MdDelete } from "react-icons/md";
 import Avatar from "./Avatar";
-import { format } from "date-fns";
+import { format, parseISO } from "date-fns";
+import { converterDataHora } from "@/utils";
 /**
  * Card para exibir as tarefas em um design bonito com elevação ao clique no cartão.
  */
@@ -40,7 +41,7 @@ function CardTodo({
         <p className="xs:text-sm md:text-xl text-primary">{task}</p>
         <p className="text-xs text-gray-400">
           {dateCreated ? (
-            `${STR.created} ${format(dateCreated, "dd/MM/yy HH:mm:ss")}`
+            `${STR.created} ${converterDataHora(dateCreated)}`
           ) : (
             <br />
           )}
@@ -48,7 +49,7 @@ function CardTodo({
 
         <p className="text-md text-green-600">
           {dateCompleted ? (
-            `${STR.completed} ${format(dateCompleted, "dd/MM/yy HH:mm:ss")}`
+            `${STR.completed} ${converterDataHora(dateCompleted)}`
           ) : (
             <br />
           )}

@@ -8,7 +8,7 @@ function TextField({ className, ...rest }) {
     <textarea
       {...rest}
       className={clsx({
-        "pacifico text-2xl": true,
+        "text-2xl": true,
         "bg-transparent text-center": true,
         "outline-none border-b-4 border-secondary": true,
         "placeholder:text-gray-400": true,
@@ -19,7 +19,7 @@ function TextField({ className, ...rest }) {
     <input
       {...rest}
       className={clsx({
-        "pacifico text-2xl": true,
+        "text-2xl": true,
         "bg-transparent text-center": true,
         "outline-none border-b-4 border-secondary": true,
         "pb-1 placeholder:text-gray-400": true,
