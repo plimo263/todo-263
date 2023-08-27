@@ -8,8 +8,8 @@ import { format } from "date-fns";
  */
 
 const STR = {
-  created: "Criado em: ",
-  completed: "Completado em: ",
+  created: "Criada em: ",
+  completed: "Concluida em: ",
   titleDelete: "Excluir tarefa do sistema",
 };
 const sizeCheck = 36;
@@ -37,11 +37,18 @@ function CardTodo({
         )}
       </IconButton>
       <div className="flex-1 flex flex-col gap-1">
-        <p className="xs:text-sm md:text-xl text-primary pacifico">{task}</p>
+        <p className="xs:text-sm md:text-xl text-primary">{task}</p>
+        <p className="text-xs text-gray-400">
+          {dateCreated ? (
+            `${STR.created} ${format(dateCreated, "dd/MM/yy HH:mm:ss")}`
+          ) : (
+            <br />
+          )}
+        </p>
 
-        <p className="text-xs text-gray-400 text-center">
+        <p className="text-md text-green-600">
           {dateCompleted ? (
-            `${STR.completed} ${format(dateCompleted, "dd/MM/yy HH:mm")}`
+            `${STR.completed} ${format(dateCompleted, "dd/MM/yy HH:mm:ss")}`
           ) : (
             <br />
           )}

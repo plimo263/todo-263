@@ -30,6 +30,7 @@ function CriarTarefa({ onConfirm }) {
         value={value}
         autoFocus
         placeholder={STR.placeholder}
+        className="self-stretch"
       />
       <Fab
         disabled={value.length === 0}

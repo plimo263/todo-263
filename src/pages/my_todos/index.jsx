@@ -7,6 +7,7 @@ import CardTodo from "@/components/CardTodo";
 import Modal from "@/components/Modal";
 import CriarTarefa from "./criar_tarefa";
 import List from "@/components/List";
+import FilterPeriod from "@/components/FilterPeriod";
 /**
  * Local onde fica as tarefas do usuário. Este acesso
  * so é exibido quando o usuário esta logado, caso não esteja
@@ -63,12 +64,12 @@ function MyTodos({ user }) {
 
   return (
     <div>
-      {modal && (
-        <Modal onClose={() => setModal(null)}>
-          <CriarTarefa onConfirm={onAddTask} />
-        </Modal>
-      )}
-      <p className="flex justify-end">
+      <Modal isOpen={Boolean(modal)} onClose={() => setModal(null)}>
+        <CriarTarefa onConfirm={onAddTask} />
+      </Modal>
+
+      <div className="flex justify-between items-center">
+        <FilterPeriod />
         <Fab
           color="secondary"
           onClick={intentAddTask}
@@ -77,7 +78,7 @@ function MyTodos({ user }) {
           <MdAddTask size={28} />
           <span className="hidden md:block">{STR.labelBtnAdd}</span>
         </Fab>
-      </p>
+      </div>
       {todo.length === 0 ? (
         <div className="flex flex-col items-center space-y-4">
           <h3 className="text-3xl pacifico">{STR.titleNoTaskCreate}</h3>

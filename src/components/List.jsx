@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { AnimatePresence, motion } from "framer-motion";
+import { clsx } from "clsx";
 /**
  * Uma lista que recebe os itens a pode aplicar algum tipo de animação sobre os mesmos.
  * A lista de animações disponíveis é grande e você pode controlar o intervalo em que os
@@ -121,7 +122,7 @@ const getAnimationType = (animationType, interval = 0.2) => {
   }
 };
 
-function List({ items, renderItem, animation, interval }) {
+function List({ items, renderItem, animation, interval, className }) {
   const cls = "space-y-2 mt-2";
   // Verifica qual variante foi escolhida
   const variant = getAnimationType(animation, interval);
@@ -129,7 +130,7 @@ function List({ items, renderItem, animation, interval }) {
   // Não deseja animacao ou ela não foi encontrada
   if (!variant) {
     return (
-      <ul className={cls}>
+      <ul className={clsx({ [cls]: true, [className]: Boolean(className) })}>
         {items.map((item, idx) => (
           <li key={idx}>{renderItem(item)}</li>
         ))}
@@ -142,7 +143,7 @@ function List({ items, renderItem, animation, interval }) {
       variants={variant}
       initial="initial"
       animate="animate"
-      className={cls}
+      className={clsx({ [cls]: true, [className]: Boolean(className) })}
     >
       <AnimatePresence>
         {items.map((item) => (
@@ -177,6 +178,7 @@ List.propTypes = {
   ]),
   /** Define um intervalo entre as animações dos filhos */
   interval: PropTypes.number,
+  /** Uma classname a ser aplicada a lista dos itens */
 };
 
 export default List;
