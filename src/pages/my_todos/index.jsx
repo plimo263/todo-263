@@ -5,10 +5,11 @@ import { MdAddTask } from "react-icons/md";
 import Fab from "@/components/Fab";
 import CardTodo from "@/components/CardTodo";
 import Modal from "@/components/Modal";
-import CriarTarefa from "./criar_tarefa";
 import List from "@/components/List";
 import FilterPeriod from "@/components/FilterPeriod";
 import { format } from "date-fns";
+import EditarTarefa from "./editar_tarefa";
+import ManutencaoTarefa from "./manutencao_tarefa";
 /**
  * Local onde fica as tarefas do usuário. Este acesso
  * so é exibido quando o usuário esta logado, caso não esteja
@@ -21,6 +22,11 @@ const STR = {
   titleNoTaskCreate: "Não existem tarefas criadas no filtro informado.",
   descriptionNoTaskCreate:
     "Para criar uma nova tarefa basta clicar no botão de Nova tarefa",
+};
+
+const MODAL = {
+  CREATE_TASK: "CREATE_TASK",
+  EDIT_TASK: "EDIT_TASK",
 };
 
 function MyTodos({ user, tasks }) {
@@ -48,9 +54,6 @@ function MyTodos({ user, tasks }) {
     },
     [todo, setTodo]
   );
-  // Inicia a intenção de se criar uma nova tarefa
-  const intentAddTask = useCallback(() => setModal(true), [setModal]);
-
   // Criar nova tarefa
   const onAddTask = useCallback(
     async (task) => {
@@ -105,18 +108,42 @@ function MyTodos({ user, tasks }) {
     },
     [setTodo, user]
   );
+  // Editar as tarefas
+  const onEditTask = useCallback(async (taskEdit) => {
+    try {
+      const response = await fetch("/api/task", {
+        body: JSON.stringify(taskEdit),
+        method: "PATCH",
+      });
+      const task = JSON.parse(await response.json());
+      //
+      setTodo((val) => val.map((item) => (item.id === task.id ? task : item)));
+    } catch (error) {}
+
+    setModal(null);
+  }, []);
 
   return (
     <div>
       <Modal isOpen={Boolean(modal)} onClose={() => setModal(null)}>
-        <CriarTarefa onConfirm={onAddTask} />
+        {modal ? (
+          modal.type === MODAL.CREATE_TASK ? (
+            <ManutencaoTarefa onConfirm={onAddTask} />
+          ) : (
+            <ManutencaoTarefa
+              task={modal.data.task}
+              id={modal.data.id}
+              onConfirm={onEditTask}
+            />
+          )
+        ) : null}
       </Modal>
 
       <div className="flex justify-between items-center">
         <FilterPeriod onClick={onFilterDate} />
         <Fab
           color="secondary"
-          onClick={intentAddTask}
+          onClick={() => setModal({ type: MODAL.CREATE_TASK })}
           className="p-3 z-10 fixed bottom-8 right-4 md:bottom-0 md:relative text-white flex flex-row items-center md:gap-4"
         >
           <MdAddTask size={28} />
@@ -148,8 +175,14 @@ function MyTodos({ user, tasks }) {
               key={id}
               dateCompleted={dateCompleted}
               dateCreated={dateCreated}
-              onChecked={() => onChecked(id)}
+              onChecked={(e) => {
+                e.stopPropagation();
+                onChecked(id);
+              }}
               onDelete={() => onDeleteTask(id)}
+              onEdit={() =>
+                setModal({ type: MODAL.EDIT_TASK, data: { id, task } })
+              }
               avatar={userAvatar}
               altAvatar={`${STR.altAvatar} ${userName}`}
             />
