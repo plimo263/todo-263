@@ -19,6 +19,7 @@ function Chip({ icon, label, color, variant, onClick, ...res }) {
         "transition px-2 py-1 rounded-full": true,
         "flex items-center gap-1": true,
         "cursor-pointer": Boolean(onClick),
+        [`hover:bg-${color}/10 transition`]: variant !== "filled",
       })}
       {...res}
     >
