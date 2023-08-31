@@ -11,21 +11,19 @@ const getColorAndVariant = (color, variant) => {
 };
 
 function Chip({ icon, label, color, variant, onClick, ...res }) {
+  const cls = clsx({
+    [`hover:bg-${color}/10 transition`]: variant !== "filled",
+    [getColorAndVariant(color, variant)]: true,
+    "px-2 py-1 rounded-full": true,
+    "flex items-center gap-1": true,
+    "cursor-pointer": Boolean(onClick),
+  });
+
   return (
-    <span
-      onClick={onClick}
-      className={clsx({
-        [getColorAndVariant(color, variant)]: true,
-        "transition px-2 py-1 rounded-full": true,
-        "flex items-center gap-1": true,
-        "cursor-pointer": Boolean(onClick),
-        [`hover:bg-${color}/10 transition`]: variant !== "filled",
-      })}
-      {...res}
-    >
+    <button onClick={onClick} className={cls} {...res}>
       {icon && icon}
       {label}
-    </span>
+    </button>
   );
 }
 //

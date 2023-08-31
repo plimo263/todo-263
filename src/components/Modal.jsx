@@ -7,6 +7,16 @@ import { clsx } from "clsx";
  * Componente que exibe um modal que é uma caixa suspensa que ocupa toda a tela para exibição.
  */
 
+const classNames = {
+  frame:
+    "fixed top-0 left-0 flex flex-col items-center justify-center w-screen h-screen",
+  notOpen: "-z-50 bg-transparent",
+  open: "z-50 bg-black/80",
+  modal:
+    "bg-white w-11/12 md:w-10/12 lg:w-6/12 min-h-[50%] mx-auto p-4 rounded-lg flex flex-col justify-between",
+  btnClose: "self-end text-secondary border-secondary",
+};
+
 const STR = {
   titleCloseModal: "Clique para fechar o modal",
   labelBtnClose: "Fechar",
@@ -17,11 +27,9 @@ function Modal({ children, onClose, isOpen }) {
     <div
       className={clsx({
         transition: true,
-        "fixed top-0 left-0 flex flex-col": true,
-        "items-center justify-center": true,
-        "w-screen h-screen": true,
-        "-z-50 bg-transparent": !isOpen,
-        "z-50 bg-black/80": isOpen,
+        [classNames.frame]: true,
+        [classNames.notOpen]: !isOpen,
+        [classNames.open]: isOpen,
       })}
     >
       <AnimatePresence>
@@ -32,14 +40,14 @@ function Modal({ children, onClose, isOpen }) {
             animate={{ y: "0" }}
             exit={{ y: "150vh", transition: { duration: 0.1 } }}
             transition={{ type: "keyframes" }}
-            className="bg-white w-11/12 md:w-10/12 lg:w-6/12 min-h-[50%] mx-auto p-4 rounded-lg flex flex-col justify-between "
+            className={classNames.modal}
           >
             {children}
             <Button
               title={STR.titleCloseModal}
               onClick={onClose}
               variant="outlined"
-              className="self-end text-secondary border-secondary"
+              className={classNames.btnClose}
             >
               {STR.labelBtnClose}
             </Button>

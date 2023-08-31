@@ -6,6 +6,11 @@ import { useClickAway } from "react-use";
  * ao componente clicado.
  */
 
+const classNames = {
+  container: "bg-slate-100 shadow-md p-2 w-auto rounded-md z-50",
+  item: "cursor-pointer px-2 py-1 whitespace-nowrap hover:bg-slate-200 z-50",
+};
+
 function Menu({ onClose, anchorEl, options, isOpen }) {
   const ref = useRef(null);
   // Quando clicado fora fecha o componente de menu
@@ -14,22 +19,28 @@ function Menu({ onClose, anchorEl, options, isOpen }) {
       setTimeout(() => onClose(), [300]);
     }
   });
+  const top =
+    anchorEl?.current?.offsetTop !== undefined
+      ? anchorEl?.current?.offsetTop + 28
+      : 0;
+  const left =
+    anchorEl?.current?.offsetLeft !== undefined
+      ? anchorEl?.current?.offsetLeft - ref?.current?.clientWidth + 16
+      : 0;
+
   return (
     <div
       ref={ref}
-      className="bg-slate-100 shadow-md p-2 w-auto rounded-md z-50 "
+      className={classNames.container}
       style={{
         position: "fixed",
-        top: anchorEl?.current?.offsetTop + 28,
-        left: anchorEl?.current?.offsetLeft - ref?.current?.clientWidth + 16,
+        top: top,
+        left: left,
         visibility: isOpen ? "visible" : "hidden",
       }}
     >
       {options.map((item, idx) => (
-        <div
-          key={idx}
-          className="cursor-pointer px-2 py-1 whitespace-nowrap hover:bg-slate-200 z-50 "
-        >
+        <div key={idx} className={classNames.item}>
           {item}
         </div>
       ))}

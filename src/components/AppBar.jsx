@@ -14,6 +14,17 @@ const STR = {
   labelBtnExit: "Sair do App",
 };
 
+const classNames = {
+  container: "w-full p-1 flex flex-row shadow-lg bg-white",
+  bodyContainer:
+    "container mx-auto max-w-6xl flex flex-row items-center justify-between",
+  infoUser: "flex items-center gap-2",
+  infoUserName: "pacifico text-sm",
+  imageAvatar: "rounded-full",
+  iconMenu: "text-primary",
+  btnLogout: "hover:shadow-none",
+};
+
 function AppBar() {
   const [view, setView] = useState(false);
   const refBtn = useRef(null);
@@ -29,8 +40,8 @@ function AppBar() {
   }, [setView]);
   //
   return (
-    <div className="w-full p-1 flex flex-row shadow-lg bg-white">
-      <div className="container mx-auto max-w-6xl flex flex-row items-center justify-between">
+    <div className={classNames.container}>
+      <div className={classNames.bodyContainer}>
         <Image
           src="/assets/logo.png"
           height={48}
@@ -38,21 +49,21 @@ function AppBar() {
           alt={STR.altLogo}
         />
         {session && (
-          <div className="flex items-center gap-2">
+          <div className={classNames.infoUser}>
             <span>{STR.greeting} </span>
-            <span className="pacifico text-sm">
+            <span className={classNames.infoUserName}>
               {session?.user?.name?.split(" ")[0]}
             </span>
 
             <Image
-              className="rounded-full"
+              className={classNames.imageAvatar}
               width={48}
               height={48}
               src={session.user.image}
               alt={session.user.name}
             />
             <button onClick={onViewMenu} ref={refBtn}>
-              <MdMoreVert size={24} className="text-primary" />
+              <MdMoreVert size={24} className={classNames.iconMenu} />
             </button>
             <Menu
               onClose={onClose}
@@ -73,7 +84,7 @@ const LogoutBtn = () => {
   }, []);
 
   return (
-    <Button className="hover:shadow-none" onClick={onLogout}>
+    <Button className={classNames.btnLogout} onClick={onLogout}>
       {STR.labelBtnExit}
     </Button>
   );

@@ -16,6 +16,7 @@ import FilterPeriod from "@/components/FilterPeriod";
 import { format, parseISO } from "date-fns";
 import ManutencaoTarefa from "./manutencao_tarefa";
 import { prisma } from "@/db";
+import { Animate, Fade } from "@/components/Animations";
 /**
  * Local onde fica as tarefas do usuário. Este acesso
  * so é exibido quando o usuário esta logado, caso não esteja
@@ -219,14 +220,16 @@ function MyTodos({ user, tasks }) {
 
       <div className={CLASSNAMES.container}>
         <FilterPeriod onClick={onFilterDate} />
-        <Fab
-          color={CLASSNAMES.btnAddColor}
-          onClick={() => setModal({ type: MODAL.CREATE_TASK })}
-          className={CLASSNAMES.btnAdd}
-        >
-          <MdAddTask size={28} />
-          <span className={CLASSNAMES.btnAddLabel}>{STR.labelBtnAdd}</span>
-        </Fab>
+        <Animate animation="grow">
+          <Fab
+            color={CLASSNAMES.btnAddColor}
+            onClick={() => setModal({ type: MODAL.CREATE_TASK })}
+            className={CLASSNAMES.btnAdd}
+          >
+            <MdAddTask size={28} />
+            <span className={CLASSNAMES.btnAddLabel}>{STR.labelBtnAdd}</span>
+          </Fab>
+        </Animate>
       </div>
       {tasks.length === 0 ? (
         <div className={CLASSNAMES.containerNoTask}>
@@ -310,7 +313,6 @@ export const getServerSideProps = async ({ req, res }) => {
   } catch (error) {
     console.log(error);
   }
-  console.log(tasks);
   // Tudo certo, retorne o usuário na props
   return {
     props: {

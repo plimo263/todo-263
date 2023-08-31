@@ -1,4 +1,5 @@
 import React, { useCallback, useState } from "react";
+import PropTypes from "prop-types";
 import Chip from "./Chip";
 import { MdCalendarMonth, MdSearch } from "react-icons/md";
 import { format, parseISO, subDays } from "date-fns";
@@ -19,6 +20,18 @@ const STR = {
   thisMonth: "Este Mês",
   period: "Periodo",
 };
+
+const classNames = {
+  containerPeriod: "flex flex-col items-center",
+  titlePeriod: "pacifico text-2xl md:text-4xl mb-4",
+  containerDates: "flex items-center gap-4 mb-4",
+  containerFieldDate: "flex flex-col",
+  labelDate: "text-secondary",
+  error: "text-red-500 text-lg mb-2",
+  btn: "flex gap-2 text-white p-3",
+  btnLabel: "text-xl",
+};
+
 // Padrões de datas que devem ser usados na saida
 const formatDe = "yyyy-MM-dd 00:00:00";
 const formatAte = "yyyy-MM-dd 23:59:59";
@@ -123,14 +136,12 @@ const SelectedPeriod = ({ onSave }) => {
     }
   }, [onSave, setError, de, ate]);
   return (
-    <div className="flex flex-col items-center ">
-      <h1 className="pacifico text-2xl md:text-4xl mb-4">
-        {STR.titleSeletedPeriod}
-      </h1>
-      <div className="flex items-center gap-4 mb-4">
-        <div className="flex flex-col">
+    <div className={classNames.containerPeriod}>
+      <h1 className={classNames.titlePeriod}>{STR.titleSeletedPeriod}</h1>
+      <div className={classNames.containerDates}>
+        <div className={classNames.containerFieldDate}>
           <label htmlFor="de">
-            <span className="text-secondary">{STR.labelDe}</span>
+            <span className={classNames.labelDate}>{STR.labelDe}</span>
           </label>
           <TextField
             id="de"
@@ -139,9 +150,9 @@ const SelectedPeriod = ({ onSave }) => {
             type="date"
           />
         </div>
-        <div className="flex flex-col">
+        <div className={classNames.containerFieldDate}>
           <label htmlFor="ate">
-            <span className="text-secondary">{STR.labelAte}</span>
+            <span className={classNames.labelDate}>{STR.labelAte}</span>
           </label>
           <TextField
             id="ate"
@@ -151,17 +162,18 @@ const SelectedPeriod = ({ onSave }) => {
           />
         </div>
       </div>
-      {error && <p className="text-red-500 text-lg mb-2">{error}</p>}
-      <Fab
-        className="flex gap-2 text-white p-3"
-        color="secondary"
-        onClick={onClick}
-      >
+      {error && <p className={classNames.error}>{error}</p>}
+      <Fab className={classNames.btn} color="secondary" onClick={onClick}>
         <MdSearch size={24} />
-        <span className="text-xl">{STR.labelBtnSeletedPeriod}</span>
+        <span className={classNames.btnLabel}>{STR.labelBtnSeletedPeriod}</span>
       </Fab>
     </div>
   );
+};
+
+FilterPeriod.propTypes = {
+  /* Uma função de para receber o filtro de data aplicado */
+  onClick: PropTypes.func.isRequired,
 };
 
 export default FilterPeriod;

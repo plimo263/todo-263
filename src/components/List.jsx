@@ -2,135 +2,30 @@ import React from "react";
 import PropTypes from "prop-types";
 import { AnimatePresence, motion } from "framer-motion";
 import { clsx } from "clsx";
+import { getAnimationType } from "./Animations";
 /**
  * Uma lista que recebe os itens a pode aplicar algum tipo de animação sobre os mesmos.
  * A lista de animações disponíveis é grande e você pode controlar o intervalo em que os
  * filhos são exibidos na tela.
  */
 
-const getAnimationType = (animationType, interval = 0.2) => {
-  const transition = {
-    staggerChildren: interval,
-    staggerDirection: 1,
-    type: "keyframes",
-  };
-  const transitionExit = {
-    duration: 0.3,
-  };
-  //
-  switch (animationType) {
-    case "collapse":
-      return {
-        initial: {
-          height: "0",
-        },
-        animate: {
-          height: "auto",
-          transition: transition,
-        },
-        exit: {
-          height: "0",
-          transition: transitionExit,
-        },
-      };
-    case "slide-left":
-      return {
-        initial: {
-          x: "-100vw",
-        },
-        animate: {
-          x: "0",
-          transition: transition,
-        },
-        exit: {
-          x: "-100vw",
-          transition: transitionExit,
-        },
-      };
-    case "slide-up":
-      return {
-        initial: {
-          y: "-100vh",
-        },
-        animate: {
-          y: "0",
-          transition: transition,
-        },
-        exit: {
-          y: "-100vh",
-          transition: transitionExit,
-        },
-      };
-    case "slide-down":
-      return {
-        initial: {
-          y: "200vh",
-        },
-        animate: {
-          y: "0",
-          transition: transition,
-        },
-        exit: {
-          y: "200vh",
-          transition: transitionExit,
-        },
-      };
-    case "slide-right":
-      return {
-        initial: {
-          x: "200vw",
-        },
-        animate: {
-          x: "0",
-          transition: transition,
-        },
-        exit: {
-          x: "200vw",
-          transition: transitionExit,
-        },
-      };
-    case "grow":
-      return {
-        initial: {
-          scale: 0,
-        },
-        animate: {
-          scale: 1,
-          transition: transition,
-        },
-        exit: {
-          x: 0,
-          transition: transitionExit,
-        },
-      };
-    case "fade":
-      return {
-        initial: {
-          opacity: 0,
-        },
-        animate: {
-          opacity: 1,
-          transition: transition,
-        },
-        exit: {
-          opacity: 0,
-          transition: transitionExit,
-        },
-      };
-    default:
-      return null;
-  }
+const classNames = {
+  container: "space-y-2 mt-2",
 };
 
 function List({ items, renderItem, animation, interval, className }) {
-  const cls = "space-y-2 mt-2";
   // Verifica qual variante foi escolhida
   const variant = getAnimationType(animation, interval);
 
   // Não deseja animacao ou ela não foi encontrada
   if (!variant) {
     return (
-      <ul className={clsx({ [cls]: true, [className]: Boolean(className) })}>
+      <ul
+        className={clsx({
+          [classNames.container]: true,
+          [className]: Boolean(className),
+        })}
+      >
         {items.map((item, idx) => (
           <li key={idx}>{renderItem(item)}</li>
         ))}
@@ -143,7 +38,10 @@ function List({ items, renderItem, animation, interval, className }) {
       variants={variant}
       initial="initial"
       animate="animate"
-      className={clsx({ [cls]: true, [className]: Boolean(className) })}
+      className={clsx({
+        [classNames.container]: true,
+        [className]: Boolean(className),
+      })}
     >
       <AnimatePresence>
         {items.map((item, idx) => (
