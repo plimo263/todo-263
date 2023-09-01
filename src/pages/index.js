@@ -15,7 +15,12 @@ function Index() {
 
   return (
     <div className="h-screen flex justify-center items-center">
-      <Image src="/assets/logo.png" width={200} height={200} />
+      <Image
+        alt="Logo da aplicação"
+        src="/assets/logo.png"
+        width={200}
+        height={200}
+      />
     </div>
   );
 }

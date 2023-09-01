@@ -4,6 +4,7 @@ import Button from "./Button";
 import { signOut, useSession } from "next-auth/react";
 import Menu from "./Menu";
 import { MdMoreVert } from "react-icons/md";
+import { ThemeSwitcher } from "./ThemeSwitcher";
 /**
  * Barra superior do aplicativo
  *
@@ -15,7 +16,7 @@ const STR = {
 };
 
 const classNames = {
-  container: "w-full p-1 flex flex-row shadow-lg bg-white",
+  container: "w-full p-1 flex flex-row shadow-lg bg-white dark:bg-slate-950",
   bodyContainer:
     "container mx-auto max-w-6xl flex flex-row items-center justify-between",
   infoUser: "flex items-center gap-2",
@@ -65,6 +66,7 @@ function AppBar() {
             <button onClick={onViewMenu} ref={refBtn}>
               <MdMoreVert size={24} className={classNames.iconMenu} />
             </button>
+            <ThemeSwitcher />
             <Menu
               onClose={onClose}
               isOpen={view}

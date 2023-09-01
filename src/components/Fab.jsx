@@ -8,7 +8,7 @@ import { clsx } from "clsx";
 
 const classNames = {
   container:
-    "p-2 rounded-full shadow-lg hover:scale-105 transition active:scale-95 disabled:bg-gray-100 ring-2 disabled:text-gray-400 disabled:cursor-not-allowed",
+    "p-2 rounded-full shadow-lg hover:scale-105 transition active:scale-95 disabled:bg-gray-100 dark:disabled:bg-slate-900 ring-2 disabled:text-gray-400 disabled:cursor-not-allowed",
   primary: "bg-primary ring-primary",
   secondary: "ring-secondary bg-secondary",
 };

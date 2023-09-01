@@ -7,8 +7,9 @@ import { useClickAway } from "react-use";
  */
 
 const classNames = {
-  container: "bg-slate-100 shadow-md p-2 w-auto rounded-md z-50",
-  item: "cursor-pointer px-2 py-1 whitespace-nowrap hover:bg-slate-200 z-50",
+  container:
+    "bg-slate-100 dark:bg-gray-800 shadow-md p-2 w-auto rounded-md z-50",
+  item: "cursor-pointer px-2 py-1 whitespace-nowrap hover:bg-slate-200 dark:hover:bg-gray-700 z-50 transition",
 };
 
 function Menu({ onClose, anchorEl, options, isOpen }) {

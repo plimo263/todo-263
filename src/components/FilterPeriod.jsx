@@ -6,6 +6,7 @@ import { format, parseISO, subDays } from "date-fns";
 import Modal from "./Modal";
 import TextField from "./TextField";
 import Fab from "./Fab";
+import { Animate } from "./Animations";
 
 const STR = {
   titleChip: "Aplique filtro ao periodo ",
@@ -22,7 +23,7 @@ const STR = {
 };
 
 const classNames = {
-  containerPeriod: "flex flex-col items-center",
+  containerPeriod: "flex flex-col items-center h-full dark:bg-slate-800 p-4",
   titlePeriod: "pacifico text-2xl md:text-4xl mb-4",
   containerDates: "flex items-center gap-4 mb-4",
   containerFieldDate: "flex flex-col",
@@ -162,7 +163,11 @@ const SelectedPeriod = ({ onSave }) => {
           />
         </div>
       </div>
-      {error && <p className={classNames.error}>{error}</p>}
+      {error && (
+        <Animate animation="grow">
+          <p className={classNames.error}>{error}</p>
+        </Animate>
+      )}
       <Fab className={classNames.btn} color="secondary" onClick={onClick}>
         <MdSearch size={24} />
         <span className={classNames.btnLabel}>{STR.labelBtnSeletedPeriod}</span>

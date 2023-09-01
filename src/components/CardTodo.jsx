@@ -2,8 +2,8 @@ import React from "react";
 import IconButton from "./IconButton";
 import { MdCheckBox, MdCheckBoxOutlineBlank, MdDelete } from "react-icons/md";
 import Avatar from "./Avatar";
-import { format, parseISO } from "date-fns";
 import { converterDataHora } from "@/utils";
+import { Animate } from "./Animations";
 /**
  * Card para exibir as tarefas em um design bonito com elevação ao clique no cartão.
  */
@@ -16,12 +16,12 @@ const STR = {
 
 const classNames = {
   container:
-    "p-4 flex gap-4 cursor-pointer items-center shadow-md hover:shadow-lg bg-white rounded-lg transition-shadow",
+    "p-4 flex gap-4 cursor-pointer items-center shadow-md hover:shadow-lg bg-white dark:bg-slate-800 rounded-lg transition-shadow",
   iconCheck: "text-primary",
   bodyContainer: "flex-1 flex flex-col gap-1",
   textTask: "xs:text-sm md:text-xl text-primary",
-  textCreated: "text-xs text-gray-400",
-  textCompleted: "text-md text-green-600",
+  textCreated: "text-xs text-gray-400 dark:text-gray-200",
+  textCompleted: "text-md text-green-600 dark:text-green-400",
   iconDelete: "text-red-600",
 };
 
@@ -58,14 +58,15 @@ function CardTodo({
             <br />
           )}
         </p>
-
-        <p className={classNames.textCompleted}>
-          {dateCompleted ? (
-            `${STR.completed} ${converterDataHora(dateCompleted)}`
-          ) : (
-            <br />
-          )}
-        </p>
+        {dateCompleted ? (
+          <Animate animation="fade" duration={0.1}>
+            <p className={classNames.textCompleted}>
+              {`${STR.completed} ${converterDataHora(dateCompleted)}`}
+            </p>
+          </Animate>
+        ) : (
+          <br />
+        )}
       </div>
       <Avatar src={avatar} alt={altAvatar} />
       <IconButton title={STR.titleDelete} onClick={onDelete}>

@@ -11,10 +11,11 @@ const classNames = {
   frame:
     "fixed top-0 left-0 flex flex-col items-center justify-center w-screen h-screen",
   notOpen: "-z-50 bg-transparent",
-  open: "z-50 bg-black/80",
+  open: "z-50 bg-black/70",
   modal:
-    "bg-white w-11/12 md:w-10/12 lg:w-6/12 min-h-[50%] mx-auto p-4 rounded-lg flex flex-col justify-between",
-  btnClose: "self-end text-secondary border-secondary",
+    "dark:bg-gray-900 bg-white w-11/12 md:w-10/12 lg:w-6/12 min-h-[50%] mx-auto p-4 rounded-lg flex flex-col justify-between",
+  btnClose:
+    "mt-4 self-end text-secondary border-secondary transition hover:scale-105 active:scale-95",
 };
 
 const STR = {

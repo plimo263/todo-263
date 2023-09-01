@@ -3,6 +3,7 @@ import "@/styles/globals.css";
 import "@fontsource/pacifico";
 import { SessionProvider } from "next-auth/react";
 import { AnimatePresence, motion } from "framer-motion";
+import { ThemeProvider } from "../theme-provider";
 
 export default function App({
   Component,
@@ -10,25 +11,27 @@ export default function App({
   router,
 }) {
   return (
-    <SessionProvider session={session}>
-      {router?.route !== "/" && <AppBar />}
-      <AnimatePresence>
-        <motion.div
-          key={router?.route}
-          initial={{
-            opacity: 0,
-          }}
-          animate={{
-            opacity: 1,
-          }}
-          transition={{
-            duration: 0.5,
-          }}
-          className="p-4 container mx-auto max-w-6xl"
-        >
-          <Component {...pageProps} />
-        </motion.div>
-      </AnimatePresence>
-    </SessionProvider>
+    <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+      <SessionProvider session={session}>
+        {router?.route !== "/" && <AppBar />}
+        <AnimatePresence>
+          <motion.div
+            key={router?.route}
+            initial={{
+              opacity: 0,
+            }}
+            animate={{
+              opacity: 1,
+            }}
+            transition={{
+              duration: 0.5,
+            }}
+            className="p-4 container mx-auto max-w-6xl"
+          >
+            <Component {...pageProps} />
+          </motion.div>
+        </AnimatePresence>
+      </SessionProvider>
+    </ThemeProvider>
   );
 }

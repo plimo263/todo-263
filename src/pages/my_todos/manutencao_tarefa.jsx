@@ -1,12 +1,20 @@
 import Fab from "@/components/Fab";
 import TextField from "@/components/TextField";
 import isHotkey from "is-hotkey";
-import { uniqueId } from "lodash";
 import React, { useCallback, useState } from "react";
 import { MdAddTask, MdEdit } from "react-icons/md";
 /**
  *  Local para registrar uma nova tarefa no sistema.
  */
+
+const classNames = {
+  container: "h-full flex flex-col items-center gap-2 dark:bg-slate-800 p-2",
+  title: "text-4xl",
+  description: "text-gray-500 dark:text-gray-200 text-xl mb-2",
+  btn: "gap-2 flex items-center px-4 text-white",
+  textField: "self-stretch mb-2",
+  btnLabel: "pacifico text-2xl",
+};
 
 const STR = {
   titleCreate: "Nova Tarefa",
@@ -47,7 +55,7 @@ function ManutencaoTarefa({ onConfirm, id, task }) {
     (e) => {
       setValue(e.target.value);
     },
-    [onConfirm, setValue]
+    [setValue]
   );
   //
   const onKeyUp = useCallback(
@@ -71,9 +79,11 @@ function ManutencaoTarefa({ onConfirm, id, task }) {
   );
   //
   return (
-    <div className="h-full flex flex-col items-center gap-2">
-      <h1 className="text-4xl">{STR[id ? "titleEdit" : "titleCreate"]}</h1>
-      <p className="text-gray-500 text-xl mb-2">
+    <div className={classNames.container}>
+      <h1 className={classNames.title}>
+        {STR[id ? "titleEdit" : "titleCreate"]}
+      </h1>
+      <p className={classNames.description}>
         {STR[id ? "descriptionEdit" : "descriptionCreate"]}
       </p>
       <TextField
@@ -82,16 +92,16 @@ function ManutencaoTarefa({ onConfirm, id, task }) {
         value={value}
         autoFocus
         placeholder={STR.placeholderCreate}
-        className="self-stretch"
+        className={classNames.textField}
       />
       <Fab
         disabled={value.length === 0}
         color="secondary"
-        className="gap-2 flex items-center px-4 text-white"
+        className={classNames.btn}
         onClick={onSubmit}
       >
         {id ? <MdEdit size={24} /> : <MdAddTask size={24} />}
-        <span className="pacifico text-2xl">
+        <span className={classNames.btnLabel}>
           {STR[id ? "labelBtnEdit" : "labelBtnCreate"]}
         </span>
       </Fab>

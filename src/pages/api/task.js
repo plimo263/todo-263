@@ -109,7 +109,7 @@ const requestDelTask = async (res, idTask) => {
   }
 };
 //
-export default async function (req, res) {
+export default async function apiTask(req, res) {
   // Inserir uma nova tarefa
   switch (req.method) {
     case "POST":

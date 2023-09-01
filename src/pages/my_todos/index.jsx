@@ -16,7 +16,7 @@ import FilterPeriod from "@/components/FilterPeriod";
 import { format, parseISO } from "date-fns";
 import ManutencaoTarefa from "./manutencao_tarefa";
 import { prisma } from "@/db";
-import { Animate, Fade } from "@/components/Animations";
+import { Animate } from "@/components/Animations";
 /**
  * Local onde fica as tarefas do usuário. Este acesso
  * so é exibido quando o usuário esta logado, caso não esteja
@@ -31,10 +31,11 @@ const STR = {
   descriptionNoTaskCreate:
     "Para criar uma nova tarefa basta clicar no botão de Nova tarefa",
   questionConfirmDelete: "Deseja realmente excluir a tarefa ?",
+  titleAddTask: "Clique para adicionar uma nova tarefa",
 };
 // Organização das classes aplicadas aos itens da pagina
 const CLASSNAMES = {
-  container: "flex justify-between items-center",
+  container: "flex justify-between items-center mb-2",
   btnAddColor: "secondary",
   btnAdd:
     "p-3 z-10 fixed bottom-8 right-4 md:bottom-0 md:relative text-white flex flex-row items-center md:gap-4",
@@ -222,6 +223,7 @@ function MyTodos({ user, tasks }) {
         <FilterPeriod onClick={onFilterDate} />
         <Animate animation="grow">
           <Fab
+            title={STR.titleAddTask}
             color={CLASSNAMES.btnAddColor}
             onClick={() => setModal({ type: MODAL.CREATE_TASK })}
             className={CLASSNAMES.btnAdd}

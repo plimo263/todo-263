@@ -6,7 +6,7 @@ const getColorAndVariant = (color, variant) => {
   if (variant === "filled") {
     return `bg-${color} text-white`;
   } else {
-    return `border border-${color} ring-${color} text-${color}`;
+    return `border border-${color} ring-${color} text-${color} dark:text-gray-300`;
   }
 };
 
