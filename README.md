@@ -22,7 +22,7 @@ Ele foi construido com NextJS e fazendo uso de libs como **Nextauth** e o **Tail
 
 ### Como instalar ?
 
-Para realizar a instalação deste sistema faça um clone do projeto e crie um arquivo na raiz chamado .env. Para usar um já com os exemplos das variaveis utilizadas basta renomear o arquivo .env_example para .env e preencher as variveis ali contidas.
+Para realizar a instalação deste sistema faça um clone do projeto e crie um arquivo na raiz chamado .env. Para usar um já com os exemplos das variaveis utilizadas basta renomear o arquivo .env_example para .env e preencher as variáveis ali contidas.
 
 Depois você pode executar os comandos abaixo
 
